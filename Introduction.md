@@ -16,10 +16,16 @@ Maven is primarily used for simplifying the management of project builds, depend
 ### 3. **Project Structure**
    - Promotes a standard directory structure for projects:
      ```
-     my-project/
-     ├── pom.xml   (Config)
-     ├── src/      (Source & Resources)
-     └── target/   (Compiled Output)
+      my-project/
+      ├── pom.xml             (Project Object Model file)
+      ├── src/
+      │   ├── main/
+      │   │   ├── java/       (Java source code)
+      │   │   └── resources/  (Non-code resources)
+      │   └── test/
+      │       └── java/       (Test source code)
+      └── target/             (Compiled files and artifacts)
+
      ```
    - **Benefits:** Easier collaboration and understanding of project layout.
 
