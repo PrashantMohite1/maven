@@ -1,7 +1,12 @@
 # Introduction to maven 
 
-Maven is primarily used for simplifying the management of project builds, dependencies, and project structure, enabling developers to focus more on writing code and less on managing these aspects manually.
+- Maven is primarily used for simplifying the management of project builds, dependencies, and project structure, enabling developers to focus more on writing code and less on managing these aspects manually.
 
+
+- **archetype**:- In Maven, an archetype is a template that allows users to create new Maven projects
+
+
+- maven uses **Convention over Configuration** is a software design principle that aims to reduce the number of decisions developers need to make, by providing sensible defaults for common tasks. In other words, it means that if you follow a set of established conventions (i.e., default practices or structures), you don’t have to configure everything manually. The framework or tool will just "work" based on those conventions, and you only need to override the defaults when necessary.
 
 ## What does Maven do ? 
 
