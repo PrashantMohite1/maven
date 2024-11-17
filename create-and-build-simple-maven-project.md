@@ -1,102 +1,133 @@
-### **Lesson 2: Creating and Building a Simple Maven Project**
+### **Lesson: Creating and Running a Simple Maven Project**
 
-In this lesson, we'll go through the steps to create a simple Maven project and build it.
+---
 
-#### Step 1: Installing Maven
+### 1. **Installing Maven**
 
-Before you start using Maven, you need to install it. If you don't have Maven installed yet, follow these steps:
+Before starting with Maven, you need to install it.
 
-1. **Download Maven**: Go to the [official Apache Maven website](https://maven.apache.org/download.cgi) and download the latest version.
+1. **Download Maven** from the [official website](https://maven.apache.org/download.cgi).
 2. **Install Maven**:
-   - Extract the downloaded archive to a folder on your system.
-   - Set the `MAVEN_HOME` environment variable to the Maven installation directory.
-   - Add `MAVEN_HOME/bin` to your system’s `PATH` variable to run Maven commands from anywhere.
-
-To verify that Maven is installed, open a terminal (or command prompt) and run:
-
+   - Extract the downloaded archive.
+   - Set the `MAVEN_HOME` environment variable.
+   - Add `MAVEN_HOME/bin` to your system's `PATH` variable.
+   
+To verify installation, run:
 ```bash
 mvn -v
 ```
 
-You should see the version of Maven installed, along with Java details.
+---
+
+### 2. **Creating a Simple Maven Project**
+
+**Step 1**: Create a new Maven project using the **quickstart archetype**.
+
+```bash
+mvn archetype:generate -DgroupId=com.example -DartifactId=hello-world -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+
+- This creates a basic Java project with a `main` method.
+- `groupId`: Your project’s group (e.g., `com.example`).
+- `artifactId`: The project name (e.g., `hello-world`).
+- `archetypeArtifactId`: Template for the project (here, `maven-archetype-quickstart`).
+- `-DinteractiveMode=false`: Skips interactive prompts during creation.
 
 ---
 
-#### Step 2: Creating a Maven Project from Command Line
+### 3. **Project Structure**
 
-Now, let's create a simple Maven project using Maven's command-line tool.
-
-1. **Open a terminal (or command prompt)**.
-2. **Navigate to the directory** where you want to create your project.
-3. **Run the following Maven command to create a new project**:
-
-```bash
-mvn archetype:generate -DgroupId=com.example -DartifactId=my-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-```
-
-Explanation:
-- `archetype:generate`: This is a Maven goal that helps generate a new project based on a template (called an archetype).
-- `-DgroupId=com.example`: Defines the group ID (namespace).
-- `-DartifactId=my-project`: Defines the project name (artifact).
-- `-DarchetypeArtifactId=maven-archetype-quickstart`: Specifies the archetype, which is a basic template for a Java application with a simple `main` method.
-- `-DinteractiveMode=false`: Disables interactive prompts, so Maven doesn't ask for inputs during project generation.
-
-After running the command, Maven will create the project with the following structure:
+After running the above command, Maven generates the following structure:
 
 ```
-my-project
+hello-world
 │
-├── pom.xml  
+├── pom.xml         # Project configuration file
 └── src
-    ├── main
-    │   └── java
-    │       └── com
-    │           └── example
-    │               └── App.java
+    └── main
+        └── java
+            └── com
+                └── example
+                    └── App.java    # Main Java file
     └── test
         └── java
             └── com
                 └── example
-                    └── AppTest.java
+                    └── AppTest.java  # Test file
 ```
 
 ---
 
-#### Step 3: Understanding the Project Structure
+### 4. **Modifying the `App.java` File**
 
-Let’s take a quick look at the generated project structure:
+Open `src/main/java/com/example/App.java` and modify the `main` method to print `"Hello World!"`:
 
-- **pom.xml**: The project descriptor file (as we saw earlier).
-- **src/main/java/com/example/App.java**: The main Java file with a simple `main` method.
-- **src/test/java/com/example/AppTest.java**: A basic JUnit test file to test the `App` class.
+```java
+package com.example;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}
+```
 
 ---
 
-#### Step 4: Building the Project
+### 5. **Configuring `Main-Class` in `pom.xml`**
 
-To build (compile) your project, run this command from the root of the project (where `pom.xml` is located):
+To run the JAR file with `java -jar`, you need to specify the **main class** in the `pom.xml` file.
+
+1. Open `pom.xml`.
+2. Add the following to the `<build>` section to set the `Main-Class`:
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Main-Class>com.example.App</Main-Class>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+This ensures that when you run the JAR, Maven knows which class to execute.
+
+---
+
+### 6. **Building the Project**
+
+To build and package the project into a JAR file, run:
 
 ```bash
 mvn clean package
 ```
 
-Explanation:
-- `clean`: Cleans the target directory by deleting the compiled files from previous builds.
-- `package`: Compiles your code and creates the final packaged output (like a JAR file).
+- `clean`: Deletes previously compiled files.
+- `package`: Compiles the project and creates the `.jar` file.
 
-After running the command, Maven will create a `.jar` file inside the `target` directory, usually named `my-project-1.0-SNAPSHOT.jar`.
+After running, the JAR will be in the `target/` folder, named something like `hello-world-1.0-SNAPSHOT.jar`.
 
 ---
 
-#### Step 5: Running the Application
+### 7. **Running the JAR**
 
-You can run the application by using the `java -jar` command:
+Now, you can run your JAR with the `java -jar` command:
 
 ```bash
-java -jar target/my-project-1.0-SNAPSHOT.jar
+java -jar target/hello-world-1.0-SNAPSHOT.jar
 ```
 
-This will execute the `App` class, which should print something like:
+This will execute the `com.example.App` class and print:
 
 ```
 Hello World!
@@ -104,9 +135,26 @@ Hello World!
 
 ---
 
-### What did we cover?
-- Installed Maven and set it up.
-- Created a Maven project using an archetype.
-- Built and packaged the project into a JAR file.
+### **Alternative: Running Without `Main-Class` in Manifest**
 
-Once you're done with this, let me know, and I’ll guide you through the next lesson! Just ask for the "Next lesson" when you're ready!
+If you don't want to specify `Main-Class` in the `pom.xml`, you can run the program using the `-cp` option:
+
+```bash
+java -cp target/hello-world-1.0-SNAPSHOT.jar com.example.App
+```
+
+This also runs the `com.example.App` class directly.
+
+---
+
+### **Summary**
+
+- **Install Maven** and set up your environment.
+- **Create a project** using `mvn archetype:generate`.
+- **Modify the `App.java`** to print `"Hello World!"`.
+- **Add the `Main-Class`** configuration in `pom.xml` for `java -jar` support.
+- **Build** the project: `mvn clean package`.
+- **Run** the JAR file: `java -jar target/hello-world-1.0-SNAPSHOT.jar`.
+
+---
+
