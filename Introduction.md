@@ -123,3 +123,10 @@ In this example, Maven will look in `https://mycompany.repo.com/maven2` for any 
 - **Remote repository**: Where Maven downloads dependencies from (e.g., Maven Central).
 - **Repositories** help Maven manage and organize the libraries your project needs.
 
+
+
+**when you specifiy dependencies in pom.xml maven will also download the related dependencies as well how?**
+
+maven for particular dependecies maven has pom files which has their dependencies as well 
+
+means go to ~/.m2/repository/org/junit/  -> inside dependecies you found that dependencies pom.xml which has their dependencies based on that it download all dependencies 
