@@ -130,3 +130,122 @@ In this example, Maven will look in `https://mycompany.repo.com/maven2` for any 
 maven for particular dependecies maven has pom files which has their dependencies as well 
 
 means go to ~/.m2/repository/org/junit/  -> inside dependecies you found that dependencies pom.xml which has their dependencies based on that it download all dependencies 
+
+
+## Scopes in maven
+
+In Maven, **scope** is an important concept related to the visibility and lifecycle of dependencies within a project. It defines where and when a dependency is available in different parts of the Maven build lifecycle. The scope of a dependency impacts how and when it gets included in the final build and its availability during compilation, testing, and runtime.
+
+Here’s an explanation of each scope, along with examples and use cases:
+
+### 1. **compile**
+- **Scope**: This is the default scope if no scope is specified. Dependencies with the `compile` scope are available in all phases of the build lifecycle (compilation, testing, and runtime).
+- **Use Case**: You use this scope for dependencies that are needed for both compiling and running the application.
+  
+  **Example**:
+  ```xml
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>5.3.0</version>
+    <scope>compile</scope>
+  </dependency>
+  ```
+  
+  **Use Case Example**: A library that is essential for the project to function, like Spring or Hibernate, would be included with the `compile` scope.
+
+### 2. **provided**
+- **Scope**: This scope indicates that the dependency is required during the compilation and testing phases but is provided by the runtime environment (i.e., it will not be included in the final packaged artifact like a WAR or JAR).
+- **Use Case**: Used for dependencies that are already provided by the container or runtime environment (e.g., servlet API in a web application).
+  
+  **Example**:
+  ```xml
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>4.0.1</version>
+    <scope>provided</scope>
+  </dependency>
+  ```
+  
+  **Use Case Example**: In a Java web application, the servlet API is often provided by the servlet container (e.g., Tomcat), so it’s marked as `provided` to avoid bundling it in the final artifact.
+
+### 3. **runtime**
+- **Scope**: Dependencies with this scope are required at runtime but not during compilation. They are available only when the project is running, not when it is being built or tested.
+- **Use Case**: Useful for libraries or frameworks that are required only when the application runs, such as JDBC drivers or logging libraries.
+  
+  **Example**:
+  ```xml
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.23</version>
+    <scope>runtime</scope>
+  </dependency>
+  ```
+  
+  **Use Case Example**: A MySQL JDBC driver would be included with the `runtime` scope, since it’s only needed at runtime when the application connects to the database.
+
+### 4. **test**
+- **Scope**: Dependencies with the `test` scope are only available during the test phase. These dependencies are not included in the final artifact and are excluded from compilation and runtime unless explicitly included in test code.
+- **Use Case**: Used for libraries and frameworks that are only needed for unit tests or integration tests (e.g., JUnit, TestNG).
+  
+  **Example**:
+  ```xml
+  <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+  </dependency>
+  ```
+  
+  **Use Case Example**: You would include JUnit or other testing frameworks as `test` scope dependencies because they are required only during the testing phase.
+
+### 5. **system**
+- **Scope**: Dependencies with the `system` scope are similar to `provided`, but instead of being retrieved from a repository, they must be explicitly defined using a path on the local file system. This scope is typically used for dependencies that are not available in public repositories and are provided locally.
+- **Use Case**: Rarely used but can be useful when working with proprietary or custom libraries that need to be explicitly provided from a local file system.
+  
+  **Example**:
+  ```xml
+  <dependency>
+    <groupId>com.example</groupId>
+    <artifactId>custom-library</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/lib/custom-library-1.0.jar</systemPath>
+  </dependency>
+  ```
+  
+  **Use Case Example**: If you have a custom JAR file stored locally and need to include it in your Maven build, you would use the `system` scope and define the path to the JAR file.
+
+### 6. **import**
+- **Scope**: This scope is used in Maven’s BOM (Bill of Materials) feature, where you want to import a set of dependencies from another POM file. It is only valid in the `<dependencyManagement>` section.
+- **Use Case**: Useful when you are managing versions for multiple dependencies in a central place.
+  
+  **Example**:
+  ```xml
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.3.4.RELEASE</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  ```
+  
+  **Use Case Example**: You would use the `import` scope to import a set of dependency versions from a parent POM, like in Spring Boot, to manage versions for all dependencies centrally.
+
+### Summary of Maven Scopes:
+- **compile**: Available everywhere (default).
+- **provided**: Available at compile and test time, but not in the final artifact (provided by the runtime).
+- **runtime**: Available only at runtime.
+- **test**: Available only during testing.
+- **system**: Similar to `provided`, but dependencies are specified via a system path.
+- **import**: Used to import dependency versions from another POM (used in dependency management).
+
+Each scope helps you manage dependencies in different phases of your build lifecycle and can be crucial for optimizing your project’s build process and artifact size.
