@@ -21,6 +21,7 @@ A **repository manager** (like **Nexus** or **Artifactory**) is a tool used to m
 
 ### **Snapshot and Release Management**
 
+---
 Maven distinguishes between **snapshots** (development versions) and **releases** (stable versions). Repository managers handle these versions differently:
 
 1. **Snapshot Versions**:
@@ -45,9 +46,9 @@ Maven distinguishes between **snapshots** (development versions) and **releases*
 3. **Better Version Control**: Keeps track of both mutable snapshots and immutable releases, ensuring stability and predictability in builds.
 4. **Security and Governance**: Manages access and permissions to control who can upload/download artifacts.
 
-
+---
 ### To use your self-hosted Nexus repository in your Maven project:
-
+---
 
 1. **In `pom.xml`**:  
    Add Nexus repositories under `<repositories>` for dependencies and `<distributionManagement>` for deploying artifacts.
@@ -63,10 +64,9 @@ Maven distinguishes between **snapshots** (development versions) and **releases*
 
 
 
----
+
 ---
 ### **Detailed Guide: Using Your Self-Hosted Nexus Repository in a Maven Project**
-
 ---
 
 #### **Step 1: Add Nexus Repository to `pom.xml`**
