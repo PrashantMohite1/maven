@@ -39,14 +39,14 @@ Maven distinguishes between **snapshots** (development versions) and **releases*
 - **Version Management**: Helps maintain consistency by preventing changes to release versions and ensuring that developers always get the correct snapshot or release version as needed.
 
 
-### **Why Use a Repository Manager?**
+#### **Why Use a Repository Manager?**
 1. **Centralized Dependency Management**: Easy access to shared dependencies for multiple projects and teams.
 2. **Improved Build Speed**: Caches artifacts locally and reduces dependency downloads, speeding up builds.
 3. **Better Version Control**: Keeps track of both mutable snapshots and immutable releases, ensuring stability and predictability in builds.
 4. **Security and Governance**: Manages access and permissions to control who can upload/download artifacts.
 
 
-## To use your self-hosted Nexus repository in your Maven project:
+### To use your self-hosted Nexus repository in your Maven project:
 
 
 1. **In `pom.xml`**:  
