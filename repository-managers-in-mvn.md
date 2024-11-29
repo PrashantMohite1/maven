@@ -38,7 +38,6 @@ Maven distinguishes between **snapshots** (development versions) and **releases*
 - **Caching**: Snapshots can be updated frequently, so the repository manager always serves the latest version. Releases, however, remain fixed and are served as-is.
 - **Version Management**: Helps maintain consistency by preventing changes to release versions and ensuring that developers always get the correct snapshot or release version as needed.
 
----
 
 ### **Why Use a Repository Manager?**
 1. **Centralized Dependency Management**: Easy access to shared dependencies for multiple projects and teams.
@@ -64,10 +63,8 @@ Maven distinguishes between **snapshots** (development versions) and **releases*
 
 
 
-
-
-====================================================================================================================================
-
+---
+---
 ### **Detailed Guide: Using Your Self-Hosted Nexus Repository in a Maven Project**
 
 ---
