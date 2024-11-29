@@ -49,9 +49,13 @@ Maven distinguishes between **snapshots** (development versions) and **releases*
 
 ## To use your self-hosted Nexus repository in your Maven project:
 
-1. **In `pom.xml`**: Add the Nexus repository under `<repositories>` for dependencies and under `<distributionManagement>` for deploying artifacts.
-2. **In `settings.xml`** (`~/.m2/settings.xml` for user-specific or `{Maven_Home}/conf/settings.xml` for global): Add your Nexus authentication credentials under `<servers>`.
-3. **Run Maven deploy**: Use `mvn clean deploy` to upload artifacts to Nexus.
+1. **In `pom.xml`**:  
+   Add the Nexus repository under `<repositories>` for dependencies and under `<distributionManagement>` for deploying artifacts.
 
+2. **In `settings.xml`** (`~/.m2/settings.xml` for user-specific or `{Maven_Home}/conf/settings.xml` for global): Add your Nexus authentication credentials under `<servers>` in the `settings.xml`.
 
+   **Note**: The `settings.xml` is **not created by default**. You will need to create it manually if it doesn't exist.  
+
+3. **Run Maven deploy**:  
+   Use `mvn clean deploy` to upload artifacts to Nexus.
 
